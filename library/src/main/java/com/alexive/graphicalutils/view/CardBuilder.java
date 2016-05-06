@@ -275,6 +275,14 @@ public class CardBuilder {
             for (TextView tv : textViews)
                 tv.setTextColor(textColor);
         }
+
+        //Material design guidelines: 2dp resting elevation (or 8dp when raised)
+        //Let's assume the card is resting
+        //Also: 2dp corner radius
+        int dPtoPixels = ViewUtils.convertDPtoPixels(context, 2);
+        mCardView.setCardElevation(dPtoPixels);
+        mCardView.setRadius(dPtoPixels);
+
         return mCardView;
     }
 

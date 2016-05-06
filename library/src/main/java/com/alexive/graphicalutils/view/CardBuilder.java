@@ -185,10 +185,13 @@ public class CardBuilder {
     public CardView build(Context context) {
         CardView mCardView = (CardView) LayoutInflater.from(context).inflate(mCardType.layoutResId, null);
         mCardView.setTag(mCardType.name());
-        return build(context, mCardView);
+        return build(context, mCardView, true, true, true);
     }
 
-    public CardView build(Context context, CardView mCardView) {
+    public CardView build(Context context, CardView mCardView,
+                          boolean overrideBackground,
+                          boolean overrideElevation,
+                          boolean overrideRadius) {
         if (!mCardView.getTag().toString().equals(mCardType.name()))
             throw new IllegalArgumentException("Attempting to recycle a card of another type.");
         LinkedList<TextView> textViews = new LinkedList<>();
@@ -265,12 +268,14 @@ public class CardBuilder {
         }
 
         if (useLightTheme) {
-            mCardView.setCardBackgroundColor(0xFFFFFF);
+            if (overrideBackground)
+                mCardView.setCardBackgroundColor(0xFFFFFF);
             int textColor = ContextCompat.getColor(context, android.R.color.primary_text_light);
             for (TextView tv : textViews)
                 tv.setTextColor(textColor);
         } else {
-            mCardView.setCardBackgroundColor(0x424242);
+            if (overrideBackground)
+                mCardView.setCardBackgroundColor(0x424242);
             int textColor = ContextCompat.getColor(context, android.R.color.primary_text_dark);
             for (TextView tv : textViews)
                 tv.setTextColor(textColor);
@@ -280,8 +285,10 @@ public class CardBuilder {
         //Let's assume the card is resting
         //Also: 2dp corner radius
         int dPtoPixels = ViewUtils.convertDPtoPixels(context, 2);
-        mCardView.setCardElevation(dPtoPixels);
-        mCardView.setRadius(dPtoPixels);
+        if (overrideElevation)
+            mCardView.setCardElevation(dPtoPixels);
+        if (overrideRadius)
+            mCardView.setRadius(dPtoPixels);
 
         return mCardView;
     }

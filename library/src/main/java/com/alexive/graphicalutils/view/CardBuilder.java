@@ -19,6 +19,7 @@ package com.alexive.graphicalutils.view;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +33,7 @@ import android.widget.TextView;
 import com.alexive.graphicalutils.R;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 /**
  * ----------------------------------------------------------------
@@ -55,6 +57,7 @@ public class CardBuilder {
     private Object image = null;
     private ArrayList<CardAction> actions = new ArrayList<>();
     private CardType mCardType;
+    private boolean useLightTheme = true;
 
     public CardBuilder(CardType type) {
         mCardType = type;
@@ -150,11 +153,24 @@ public class CardBuilder {
     public CardBuilder reset() {
         this.customMainView = null;
         actions.clear();
+        useLightTheme = true;
         text = null;
         title = null;
         subTitle = null;
         image = null;
         mPrimaryAction = null;
+        return this;
+    }
+
+    /**
+     * Changes the card's theme. This affects background and text color. Note that you can still change
+     * the card's background later, using {@link CardView#setCardBackgroundColor(int)}
+     *
+     * @param whiteCard If true (default), the card's background will be light and the text's color black.
+     *                  Otherwise, it'll have a dark background and light text color.
+     */
+    public CardBuilder useLightTheme(boolean whiteCard) {
+        this.useLightTheme = whiteCard;
         return this;
     }
 
@@ -175,14 +191,17 @@ public class CardBuilder {
     public CardView build(Context context, CardView mCardView) {
         if (!mCardView.getTag().toString().equals(mCardType.name()))
             throw new IllegalArgumentException("Attempting to recycle a card of another type.");
+        LinkedList<TextView> textViews = new LinkedList<>();
         View view = mCardView.findViewById(android.R.id.text1);
         if (view != null) {
+            textViews.add(((TextView) view));
             ((TextView) view).setText(title);
             view.setVisibility(title != null ? View.VISIBLE : View.GONE);
         }
 
         view = mCardView.findViewById(android.R.id.text2);
         if (view != null) {
+            textViews.add(((TextView) view));
             ((TextView) view).setText(subTitle);
             view.setVisibility(subTitle != null ? View.VISIBLE : View.GONE);
         }
@@ -190,6 +209,7 @@ public class CardBuilder {
 
         view = mCardView.findViewById(R.id.content);
         if (view != null) {
+            textViews.add(((TextView) view));
             ((TextView) view).setText(text);
             view.setVisibility(text != null ? View.VISIBLE : View.GONE);
         }
@@ -244,7 +264,17 @@ public class CardBuilder {
             }
         }
 
-
+        if (useLightTheme) {
+            mCardView.setCardBackgroundColor(0xFFFFFF);
+            int textColor = ContextCompat.getColor(context, android.R.color.primary_text_light);
+            for (TextView tv : textViews)
+                tv.setTextColor(textColor);
+        } else {
+            mCardView.setCardBackgroundColor(0x424242);
+            int textColor = ContextCompat.getColor(context, android.R.color.primary_text_dark);
+            for (TextView tv : textViews)
+                tv.setTextColor(textColor);
+        }
         return mCardView;
     }
 

@@ -204,6 +204,8 @@ public abstract class ListAdapter extends BaseAdapter {
     public void onBindViewHolder(AwesomeViewHolder awesomeViewHolder, int i) {
         int ii = getAdapterPositionForViewHolder(awesomeViewHolder);
         super.onBindViewHolder(awesomeViewHolder, i);
+        if (ii < 0) //In this case, I is the headerview
+            return;
         if (getListItemDataType(ii) == ListItemType.SUB_HEADER)
             return;
         View v; //The view that is below the checkbox

@@ -195,7 +195,7 @@ abstract class BaseAdapter extends RecyclerView.Adapter<AwesomeViewHolder> {
             i--;
         configExtraPadding(awesomeViewHolder, i);
         if (awesomeViewHolder.divider != null)
-            if (drawDivider(i))
+            if (drawDivider(index))
                 awesomeViewHolder.divider.setBackgroundColor(dividerColor);
             else
                 awesomeViewHolder.divider.setBackgroundColor(Color.TRANSPARENT);
@@ -268,7 +268,7 @@ abstract class BaseAdapter extends RecyclerView.Adapter<AwesomeViewHolder> {
         else if (dividerStyle == Divider.Style.JUST_SUB_HEADERS && i < getItemCount() - 1)
             return getItemViewType(i + 1) == AwesomeViewTypes.SUB_HEADER.code;
         else
-            return getItemCount() - 1 != i;
+            return getItemCount() - 1 != getRealAdapterPosition(i);
     }
 
     public void addHeaderView(View headerView) {

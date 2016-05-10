@@ -14,4 +14,15 @@
  * limitations under the License.
  */
 
-include ':library'//, ':demo'
+package com.alexive.graphicalutils.demo;
+
+/**
+ *
+ */
+public class SimplerDummyObject extends DummyObject {
+
+
+    public SimplerDummyObject(String name) {
+        super(name, "", null);
+    }
+}

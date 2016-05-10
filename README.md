@@ -106,6 +106,13 @@ dependencies {
 Any suggestions (and contributions) to this library will be greatly appreciated.
 The same thing goes for any bugs you find. Just file up an issue and I'll look it up ASAP.
 
+##Demo project
+If you want to try the demo project, just clone the repo, uncomment the project's root
+settings.gradle and you can go from there.
+In a one-liner:
+`git clone https://github.com/alexive/visual-goodies.git && cd visual-goodies && echo "include ':library', ':demo'" > settings.gradle`
+Then open the project on Android Studio and run the demo module
+
 ## License
 ```
 Copyright 2016 J. Oliveira

@@ -14,4 +14,22 @@
  * limitations under the License.
  */
 
-include ':library'//, ':demo'
+package com.alexive.graphicalutils.demo;
+
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        /**
+         * Just a frame layout (id = container)
+         */
+        setContentView(R.layout.activity_main);
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.container, new ListFragment1())
+                .commit();
+    }
+}

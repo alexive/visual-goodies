@@ -266,12 +266,9 @@ abstract class BaseAdapter extends RecyclerView.Adapter<AwesomeViewHolder> {
         if (dividerStyle == Divider.Style.NONE)
             return false;
         else if (dividerStyle == Divider.Style.JUST_SUB_HEADERS && i < getItemCount() - 1)
-            if (getItemViewType(i + 1) == AwesomeViewTypes.SUB_HEADER.code) {
-                return true;
-            } else
-                return false;
+            return getItemViewType(i + 1) == AwesomeViewTypes.SUB_HEADER.code;
         else
-            return getItemCount() - 1 == i ? false : true;
+            return getItemCount() - 1 != i;
     }
 
     public void addHeaderView(View headerView) {

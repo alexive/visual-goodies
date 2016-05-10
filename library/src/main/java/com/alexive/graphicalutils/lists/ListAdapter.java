@@ -264,9 +264,11 @@ public abstract class ListAdapter extends BaseAdapter {
     @Override
     protected void handleClick(AwesomeViewHolder avh) {
         if (areCheckBoxesShown() && disableClickListenerInCheckBoxMode) {
-            boolean check = !isChecked(getAdapterPositionForViewHolder(avh));
-            checkItem(getAdapterPositionForViewHolder(avh), check, false);
-            avh.checkBox.setChecked(check);
+            if (avh.checkBox != null) {
+                boolean check = !isChecked(getAdapterPositionForViewHolder(avh));
+                checkItem(getAdapterPositionForViewHolder(avh), check, false);
+                avh.checkBox.setChecked(check);
+            }
         } else
             super.handleClick(avh);
     }
@@ -274,9 +276,11 @@ public abstract class ListAdapter extends BaseAdapter {
     @Override
     protected boolean handleLongClick(AwesomeViewHolder avh) {
         if (areCheckBoxesShown() && disableClickListenerInCheckBoxMode) {
-            boolean check = !isChecked(getAdapterPositionForViewHolder(avh));
-            checkItem(getAdapterPositionForViewHolder(avh), check, false);
-            avh.checkBox.setChecked(check);
+            if (avh.checkBox != null) {
+                boolean check = !isChecked(getAdapterPositionForViewHolder(avh));
+                checkItem(getAdapterPositionForViewHolder(avh), check, false);
+                avh.checkBox.setChecked(check);
+            }
             return true;
         } else
             return super.handleLongClick(avh);
@@ -330,7 +334,7 @@ public abstract class ListAdapter extends BaseAdapter {
     }
 
 
-    //BUTTON RELATED STUFF HERE
+//BUTTON RELATED STUFF HERE
 
     protected static class CheckBoxChangeListenerWrapper implements CompoundButton.OnCheckedChangeListener {
 

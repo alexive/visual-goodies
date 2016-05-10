@@ -203,22 +203,28 @@ public class ListFragment1 extends RecyclerViewFragment implements OnItemLongCli
                 .setImage(BitmapFactory.decodeResource(getResources(), R.drawable.lisbon));
 
         //We want the card to have some padding so let's add it to a linear layout (not mandatory)
-        LinearLayout linear = new LinearLayout(getActivity());
-        linear.setLayoutParams(
-                new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT));
-        int sixteenPXasDP = ViewUtils.convertDPtoPixels(getActivity(), 16);
-        linear.setPadding(sixteenPXasDP,
-                sixteenPXasDP,
-                sixteenPXasDP,
-                (int) (sixteenPXasDP * 1.5));
+//        LinearLayout linear = new LinearLayout(getActivity());
+//        linear.setLayoutParams(
+//                new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+//                        ViewGroup.LayoutParams.WRAP_CONTENT));
+        int sixteenDPasPX = ViewUtils.convertDPtoPixels(getActivity(), 16);
+
         //This build the card and adds it to the linear layout
         CardView cardView = cardBuilder.build(getActivity());
-        linear.addView(cardView);
+
+        LinearLayout.LayoutParams layoutParams =
+                new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT);
+        layoutParams.setMargins(sixteenDPasPX,
+                sixteenDPasPX,
+                sixteenDPasPX,
+                (int) (sixteenDPasPX * 1.5));
+        cardView.setLayoutParams(layoutParams);
 
         cardView.setCardBackgroundColor(Color.parseColor("#FF5722"));
+
         //Finally, we add the view to the adapter
-        mListAdapter.addHeaderView(linear);
+        mListAdapter.addHeaderView(cardView);
     }
 
     @Override

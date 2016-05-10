@@ -217,6 +217,7 @@ public class CardBuilder {
             view.setVisibility(text != null ? View.VISIBLE : View.GONE);
         }
 
+        mCardView.setOnClickListener(mPrimaryAction);
         //TODO add the custom view
 
         view = mCardView.findViewById(android.R.id.content);

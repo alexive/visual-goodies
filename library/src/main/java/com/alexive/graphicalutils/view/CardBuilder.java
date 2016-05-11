@@ -63,6 +63,18 @@ public class CardBuilder {
         mCardType = type;
     }
 
+    /**
+     * Sets the type of the next card returned by a call to
+     * {@link #build(Context)}. Please note that information may be lost when exchanging the
+     * card's type
+     */
+    public CardBuilder setType(CardType type) {
+        if (type == CardType.NO_IMAGE)
+            image = null;
+        this.mCardType = type;
+        return this;
+    }
+
 
     /**
      * @param listener What happens when the user clicks the card.

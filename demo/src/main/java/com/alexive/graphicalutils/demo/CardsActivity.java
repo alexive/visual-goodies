@@ -19,6 +19,7 @@ package com.alexive.graphicalutils.demo;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -28,7 +29,7 @@ import android.widget.Toast;
 import com.alexive.graphicalutils.view.CardBuilder;
 import com.alexive.graphicalutils.view.ViewUtils;
 
-public class CardsActivity extends AppCompatActivity {
+public class CardsActivity extends AppCompatActivity implements CardBuilder.CardActionClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,18 +51,9 @@ public class CardsActivity extends AppCompatActivity {
 
         mCardBuilder.setTitle("Card title here")
                 .setSubTitle("subtitle here")
-                .addSupplementalAction(new CardBuilder.CardAction("A1", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Toast.makeText(CardsActivity.this, "Action 1 pressed", Toast.LENGTH_LONG).show();
-                    }
-                }))
-                .addSupplementalAction(new CardBuilder.CardAction("A2", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Toast.makeText(CardsActivity.this, "Action 2 pressed", Toast.LENGTH_LONG).show();
-                    }
-                }))
+                .addSupplementalAction(new CardBuilder.CardAction("A1", 1))
+                .addSupplementalAction(new CardBuilder.CardAction("A2", 2))
+                .addActionClickListener(this)
                 .setText("Text here! - To create a card like this use the " +
                         "FULL_WIDTH_IMAGE card type")
                 .setImage(ContextCompat.getDrawable(this, R.drawable.lisbon));
@@ -93,5 +85,13 @@ public class CardsActivity extends AppCompatActivity {
         mLinearLayout.addView(mCardBuilder.build(this), params);
 
 
+    }
+
+    @Override
+    public void onCardActionClicked(CardBuilder.CardAction action) {
+        //Clicks on the cards actions will be handled by this method
+        //Usually you'd pass a resource id to a cardAction, but in this sample I passed
+        //1 and 2
+        Toast.makeText(this, "Action #" + action.getId() + " pressed!", Toast.LENGTH_LONG).show();
     }
 }

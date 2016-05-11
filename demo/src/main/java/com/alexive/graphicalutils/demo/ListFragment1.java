@@ -195,12 +195,13 @@ public class ListFragment1 extends RecyclerViewFragment implements OnItemLongCli
                         MessageDialog.show(getActivity(), "You tapped the card", null);
                     }
                 })
-                .addSupplementalAction(new CardBuilder.CardAction("Action1", new View.OnClickListener() {
+                .addSupplementalAction(new CardBuilder.CardAction("Action1", 1))
+                .addActionClickListener(new CardBuilder.CardActionClickListener() {
                     @Override
-                    public void onClick(View v) {
-                        Toast.makeText(getActivity(), "Clicked 1st action", Toast.LENGTH_LONG).show();
+                    public void onCardActionClicked(CardBuilder.CardAction action) {
+                        Toast.makeText(getActivity(), "Action pressed!", Toast.LENGTH_SHORT).show();
                     }
-                }))
+                })
                 .setImage(BitmapFactory.decodeResource(getResources(), R.drawable.lisbon));
 
         //We want the card to have some padding so let's add it to a linear layout (not mandatory)

@@ -34,6 +34,7 @@ import com.alexive.graphicalutils.R;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  * ----------------------------------------------------------------
@@ -46,9 +47,17 @@ import java.util.LinkedList;
  * create different cards, you just have to make the changes from a card to another before
  * calling the build() method again.
  */
-public class CardBuilder {
+public class CardBuilder implements View.OnClickListener {
 
 
+    /**
+     * This'll be the resource id supplied to setTag when adding actions to buttons
+     */
+    private static final int ACTION_ID_TAG = R.id.action_container;
+    /**
+     * This one will hold the CardType value in a card
+     */
+    private static final int CARD_TYPE_TAG = R.id.detailsRoot;
     private CharSequence text;
     private View customMainView;
     private View.OnClickListener mPrimaryAction;
@@ -58,6 +67,8 @@ public class CardBuilder {
     private ArrayList<CardAction> actions = new ArrayList<>();
     private CardType mCardType;
     private boolean useLightTheme = true;
+    private CardActionClickListener cardActionClickListener;
+
 
     public CardBuilder(CardType type) {
         mCardType = type;
@@ -138,6 +149,17 @@ public class CardBuilder {
     }
 
     /**
+     * Adds a listener to be called when the user clicks an action.
+     *
+     * @param listener
+     * @return
+     */
+    public CardBuilder addActionClickListener(CardActionClickListener listener) {
+        cardActionClickListener = listener;
+        return this;
+    }
+
+    /**
      * Sets the card's text.
      *
      * @param text The card's text.
@@ -196,7 +218,7 @@ public class CardBuilder {
      */
     public CardView build(Context context) {
         CardView mCardView = (CardView) LayoutInflater.from(context).inflate(mCardType.layoutResId, null);
-        mCardView.setTag(mCardType.name());
+        mCardView.setTag(CARD_TYPE_TAG, mCardType);
         return build(context, mCardView, true, true, true);
     }
 
@@ -204,11 +226,12 @@ public class CardBuilder {
                           boolean overrideBackground,
                           boolean overrideElevation,
                           boolean overrideRadius) {
-        if (!mCardView.getTag().toString().equals(mCardType.name()))
+        if (!mCardView.getTag(CARD_TYPE_TAG).equals(mCardType))
             throw new IllegalArgumentException("Attempting to recycle a card of another type.");
         LinkedList<TextView> textViews = new LinkedList<>();
         View view = mCardView.findViewById(android.R.id.text1);
         if (view != null) {
+            view.setTag(true);
             textViews.add(((TextView) view));
             ((TextView) view).setText(title);
             view.setVisibility(title != null ? View.VISIBLE : View.GONE);
@@ -249,49 +272,56 @@ public class CardBuilder {
             mActionContainer.setVisibility(View.VISIBLE);
             for (int i = 0; i < actions.size(); i++) {
                 CardAction action = actions.get(i);
-                int j = i;
-                View optimalView = null;
+//                int j = i;
+//                View optimalView = null;
+//              Needs to be rewriten
+//                while (j < mActionContainer.getChildCount()) {
+//                    optimalView = mActionContainer.getChildAt(j);
+//                    if ((action.drawable != null && optimalView instanceof ImageButton) || (action.title !=
+//                            null && optimalView instanceof Button)) {
+//                        mActionContainer.removeViewAt(j);
+//                        mActionContainer.addView(optimalView, i);
+//                        break;
+//                    } else {
+//                        optimalView = null;
+//                        j++;
+//                    }
+//                }
+//                if (optimalView == null) {
+                View actionView = null;
+                if (action.title != null) {
+                    Button button = (Button) LayoutInflater.from(context).inflate(R.layout.card_bttn, null);
+                    textViews.add(button);
+                    button.setText(action.title);
+                    button.setOnClickListener(this);
+                    mActionContainer.addView(button);
+                    //NASTY workaround for the padding
+                    View space = new View(context);
+                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                            ViewUtils.convertDPtoPixels(context, 8),
+                            ViewGroup.LayoutParams.MATCH_PARENT);
+                    mActionContainer.addView(space, params);
+                    actionView = button;
+                }
 
-                while (j < mActionContainer.getChildCount()) {
-                    optimalView = mActionContainer.getChildAt(j);
-                    if ((action.drawable != null && optimalView instanceof ImageButton) || (action.title !=
-                            null && optimalView instanceof Button)) {
-                        mActionContainer.removeViewAt(j);
-                        mActionContainer.addView(optimalView, i);
-                        break;
-                    } else {
-                        optimalView = null;
-                        j++;
-                    }
-                }
-                if (optimalView == null) {
-                    if (action.title != null){
-                        Button button = (Button) LayoutInflater.from(context).inflate(R.layout.card_bttn, null);
-                        button.setText(action.title);
-                        button.setOnClickListener(action.actionListener);
-                        mActionContainer.addView(button);
-                        //NASTY workaround for the padding
-                        View space = new View(context);
-                        mActionContainer.addView(space, new LinearLayout.LayoutParams(
-                                ViewUtils.convertDPtoPixels(context, 8),
-                                ViewGroup.LayoutParams.MATCH_PARENT));
-                    }
-                }
+                assert actionView != null;
+                actionView.setTag(ACTION_ID_TAG, action);
             }
         }
 
         if (useLightTheme) {
             if (overrideBackground)
                 mCardView.setCardBackgroundColor(0xFFFFFF);
-            int textColor = ContextCompat.getColor(context, android.R.color.primary_text_light);
-            for (TextView tv : textViews)
-                tv.setTextColor(textColor);
+            setTextColor(textViews,
+                    ContextCompat.getColor(context, android.R.color.primary_text_light),
+                    ContextCompat.getColor(context, android.R.color.secondary_text_light));
+
         } else {
             if (overrideBackground)
                 mCardView.setCardBackgroundColor(0x424242);
-            int textColor = ContextCompat.getColor(context, android.R.color.primary_text_dark);
-            for (TextView tv : textViews)
-                tv.setTextColor(textColor);
+            setTextColor(textViews,
+                    ContextCompat.getColor(context, android.R.color.primary_text_dark),
+                    ContextCompat.getColor(context, android.R.color.secondary_text_dark));
         }
 
         //Material design guidelines: 2dp resting elevation (or 8dp when raised)
@@ -304,6 +334,23 @@ public class CardBuilder {
             mCardView.setRadius(dPtoPixels);
 
         return mCardView;
+    }
+
+    private void setTextColor(List<TextView> views, int primaryColor, int secondaryColor) {
+        boolean primary;
+        for (TextView tv : views) {
+            primary = tv.getTag() != null || tv instanceof Button;
+            tv.setTextColor(primary ? primaryColor : secondaryColor);
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (!(v instanceof Button || v instanceof ImageButton))
+            throw new RuntimeException("This listener should only be used by card actions!");
+        CardAction ca = (CardAction) v.getTag(ACTION_ID_TAG);
+        if (cardActionClickListener != null)
+            cardActionClickListener.onCardActionClicked(ca);
     }
 
     public enum CardType {
@@ -341,20 +388,28 @@ public class CardBuilder {
     //TODO add view that expands/collapses when user taps a button
 
 
+    public interface CardActionClickListener {
+        void onCardActionClicked(CardAction action);
+    }
+
     public static class CardAction {
 
         private String title;
-        private View.OnClickListener actionListener;
         private Drawable drawable;
+        private int id;
 
-        public CardAction(String title, View.OnClickListener actionListener) {
+        public CardAction(String title, int actionId) {
             this.title = title;
-            this.actionListener = actionListener;
+            id = actionId;
         }
 
-        public CardAction(Drawable drawable, View.OnClickListener actionListener) {
+        public CardAction(Drawable drawable, int actionId) {
             this.drawable = drawable;
-            this.actionListener = actionListener;
+            id = actionId;
+        }
+
+        public int getId() {
+            return id;
         }
     }
 

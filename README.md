@@ -70,9 +70,14 @@ new TextInputDialog(getActivity()).setInputPolicy(new TextInputDialog.InputPolic
 ```
 
 ## CardBuilder
-*This one is still in really early development so it'll only work for creating really basic cards*
+*This one is still in early development so it'll not work for very complex cards*
 
 The intent is to create a Card like the ones at [Google's MD guidelines](https://www.google.com/design/spec/components/cards.html) with just a few lines (and not having to create layout files)
+
+[Check the demo project](/demo/src/main/java/com/alexive/graphicalutils/demo/CardsActivity.java) for a complete sample on how to use the CardBuilder. The result is this:
+
+| <img src="images/sample3.png" width="150"/> | <img src="images/sample4.png" width="150"/> | <img src="images/sample5.png" width="150"/> | <img src="images/sample6.png" width="150"/> |
+
 
 ## Proportional Image View
 Self-explanatory, can restrict an image to 16:9, 4:3, 1:1 or just be like a regular ImageView
@@ -102,6 +107,14 @@ dependencies {
     }
 ```
 
+I'll be updating this repo often (usually bug fixes) so, if you want, tell gradle to check for a new version at every build.
+Add to your module's build.gradle:
+```
+configurations.all {
+    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+}
+```
+
 ## Suggest/Contribute
 Any suggestions (and contributions) to this library will be greatly appreciated.
 The same thing goes for any bugs you find. Just file up an issue and I'll look it up ASAP.
@@ -110,7 +123,9 @@ The same thing goes for any bugs you find. Just file up an issue and I'll look i
 If you want to try the demo project, just clone the repo, uncomment the project's root
 settings.gradle and you can go from there.
 In a one-liner:
+
 `git clone https://github.com/alexive/visual-goodies.git && cd visual-goodies && echo "include ':library', ':demo'" > settings.gradle`
+
 Then open the project on Android Studio and run the demo module
 
 ## License

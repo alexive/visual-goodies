@@ -54,10 +54,11 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:maxWidth="88dp"
-            android:paddingRight="16dp"
-            android:paddingTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="16dp"
             android:scaleType="centerCrop"
+            app:maxWidth="152dp"
             app:proportion="square"/>
 
         <include
@@ -66,7 +67,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_below="@android:id/text2"/>
+            android:layout_below="@android:id/content"/>
 
         <include
             layout="@layout/card_custom_view_container"

@@ -24,5 +24,6 @@
             <enum name="sixteen_nine" value="169"/>
             <enum name="not_proportional" value="-1"/>
         </attr>
+        <attr name="maxWidth" format="dimension"/>
     </declare-styleable>
 </resources>

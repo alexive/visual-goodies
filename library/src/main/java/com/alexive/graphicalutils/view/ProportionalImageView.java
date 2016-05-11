@@ -30,7 +30,8 @@ import com.alexive.graphicalutils.R;
 public class ProportionalImageView extends ImageView {
 
     private int proportionCode = -1;
-    private boolean heightAsRef;
+    private boolean heightAsRef = false;
+    private int maxWidth;
 
     public ProportionalImageView(Context context) {
         super(context);
@@ -43,6 +44,7 @@ public class ProportionalImageView extends ImageView {
                 R.styleable.ProportionalImageView,
                 0, 0);
         proportionCode = a.getInt(R.styleable.ProportionalImageView_proportion, 0);
+        maxWidth = (int) a.getDimension(R.styleable.ProportionalImageView_maxWidth, Integer.MAX_VALUE);
         a.recycle();
     }
 
@@ -70,6 +72,8 @@ public class ProportionalImageView extends ImageView {
             return;
 
         int mWidth = getMeasuredWidth();
+        if (mWidth > maxWidth)
+            mWidth = maxWidth;
         int mHeight = getMeasuredHeight();
 
         boolean square = proportionCode == 0;

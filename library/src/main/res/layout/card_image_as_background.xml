@@ -25,12 +25,14 @@
         android:id="@android:id/content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
         app:proportion="square"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
+        android:background="#66000000"
         android:orientation="vertical">
 
         <include layout="@layout/card_title_text_view"/>

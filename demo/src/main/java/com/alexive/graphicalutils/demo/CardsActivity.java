@@ -76,7 +76,12 @@ public class CardsActivity extends AppCompatActivity {
 
         mCardBuilder.setType(CardBuilder.CardType.IMAGE_FILLS_WITH_ACTIONS_ON_LEFT)
                 .useLightTheme(true)
-                .setText("Text here. IMAGE_NEXT_TO_TITLE here");
+                .setText("Text here. IMAGE_FILLS_WITH_ACTIONS_ON_LEFT");
+
+        mLinearLayout.addView(mCardBuilder.build(this), params);
+
+        mCardBuilder.setType(CardBuilder.CardType.NO_IMAGE)
+                .setText("This is the simplest one: NO_IMAGE");
 
         mLinearLayout.addView(mCardBuilder.build(this), params);
 

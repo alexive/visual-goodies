@@ -21,7 +21,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -31,18 +31,28 @@
             android:id="@android:id/content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/action_container"
+            android:layout_toStartOf="@+id/action_container"
+            android:scaleType="centerCrop"
             app:proportion="square"/>
 
         <LinearLayout
             android:id="@+id/action_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:minWidth="64dp"
             android:orientation="vertical"
-            android:paddingLeft="16dp">
+            android:paddingLeft="16dp"
+            android:paddingStart="16dp">
 
         </LinearLayout>
 
-    </LinearLayout>
+    </RelativeLayout>
 
 </android.support.v7.widget.CardView>

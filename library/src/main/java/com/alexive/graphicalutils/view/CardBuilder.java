@@ -326,7 +326,7 @@ public class CardBuilder {
          */
         IMAGE_NEXT_TO_TITLE(R.layout.card_image_next_to_title),
         /**
-         * The imageView will actuallyBindDataToListItem the whole Card's width and height, starting from the top left,
+         * The imageView will fill the whole Card's width and height, starting from the top left,
          * leaving space just for the actions, placed on the right.
          */
         IMAGE_FILLS_WITH_ACTIONS_ON_LEFT(R.layout.card_big_image_left);

@@ -17,6 +17,7 @@
 package com.alexive.graphicalutils.demo;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -298,6 +299,9 @@ public class ListFragment1 extends RecyclerViewFragment implements OnItemLongCli
                                     .show();
                         }
                     });
+        } else if (position == 9) {
+            //Show cards activity
+            startActivity(new Intent(getActivity(), CardsActivity.class));
         }
     }
 }

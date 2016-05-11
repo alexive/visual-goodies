@@ -23,7 +23,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -295,14 +294,22 @@ public class CardBuilder implements View.OnClickListener {
                     button.setText(action.title);
                     button.setOnClickListener(this);
                     mActionContainer.addView(button);
-                    //NASTY workaround for the padding
-                    View space = new View(context);
-                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                            ViewUtils.convertDPtoPixels(context, 8),
-                            ViewGroup.LayoutParams.MATCH_PARENT);
-                    mActionContainer.addView(space, params);
                     actionView = button;
+                } else if (action.drawable != null) {
+                    ImageButton imageButton = (ImageButton)
+                            LayoutInflater.from(context).inflate(R.layout.card_image_bttn, null);
+                    imageButton.setImageDrawable(action.drawable);
+                    imageButton.setOnClickListener(this);
+                    mActionContainer.addView(imageButton);
+                    actionView = imageButton;
                 }
+
+                //NASTY workaround for the padding
+                View space = new View(context);
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                        ViewUtils.convertDPtoPixels(context, 8),
+                        ViewUtils.convertDPtoPixels(context, 8));
+                mActionContainer.addView(space, params);
 
                 assert actionView != null;
                 actionView.setTag(ACTION_ID_TAG, action);

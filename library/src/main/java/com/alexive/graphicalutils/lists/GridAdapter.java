@@ -155,15 +155,28 @@ public abstract class GridAdapter extends ListAdapter {
                 awesomeViewHolder.getDetailsView(),
                 awesomeViewHolder.getImageView1(),  //If it's an ordinary item
                 awesomeViewHolder.getImageView1(),  //getIV1() stores the avatar.
+                awesomeViewHolder.button,
                 awesomeViewHolder.text1,
                 awesomeViewHolder.text2);
     }
 
+    /**
+     * Fills in the list item
+     *
+     * @param index        The index of the item
+     * @param itemView     The list item's view
+     * @param detailsView  Item's detail view, typically under the image
+     * @param imageView    The item's ImageView
+     * @param iconOrAvatar If it's an ordinary list item, it's avatar
+     * @param imageButton  If it's an ordinary list item, it's button
+     * @param txt          The item's text views, from top to bottom, left to right
+     */
     public abstract void bindDataToItem(int index,
                                         View itemView,
                                         View detailsView,
                                         ImageView imageView,
                                         ImageView iconOrAvatar, //needed if hybrid
+                                        ImageButton imageButton,
                                         TextView... txt);
 
 

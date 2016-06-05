@@ -304,11 +304,9 @@ abstract class BaseAdapter extends RecyclerView.Adapter<AwesomeViewHolder> {
     }
 
     protected boolean handleLongClick(AwesomeViewHolder avh) {
-        if (onItemLongClickListener != null)
-            return onItemLongClickListener.onItemLongClick(avh.itemView,
-                    getAdapterPositionForViewHolder(avh));
-        else
-            return false;
+        return onItemLongClickListener != null &&
+                onItemLongClickListener.onItemLongClick(avh.itemView,
+                        getAdapterPositionForViewHolder(avh));
     }
 
     protected ClickListener getListenerForHolder(AwesomeViewHolder avh) {

@@ -139,40 +139,33 @@ public abstract class GridAdapter extends ListAdapter {
     }
 
     @Override
-    public void bindDataToListItem(int index, View itemView, ImageView iconOrAvatar, ImageButton button, TextView... texts) {
+    public void bindDataToListItem(int index,
+                                   View itemView,
+                                   ImageView iconOrAvatar,
+                                   ImageButton button,
+                                   TextView... texts) {
         //useless
+        //you should override bindDataToItem
     }
 
     @Override
     protected void preBindData(int i, AwesomeViewHolder awesomeViewHolder) {
-        bindDataToListItem(i, awesomeViewHolder.itemView, awesomeViewHolder.getDetailsView(),
-                awesomeViewHolder.getImageView1(), awesomeViewHolder.text1, awesomeViewHolder.text2);
+        bindDataToItem(i,
+                awesomeViewHolder.itemView,
+                awesomeViewHolder.getDetailsView(),
+                awesomeViewHolder.getImageView1(),  //If it's an ordinary item
+                awesomeViewHolder.getImageView1(),  //getIV1() stores the avatar.
+                awesomeViewHolder.text1,
+                awesomeViewHolder.text2);
     }
 
-    public abstract void bindDataToListItem(int index, View itemView,
-                                            View detailsView, ImageView imageView, TextView... txt);
+    public abstract void bindDataToItem(int index,
+                                        View itemView,
+                                        View detailsView,
+                                        ImageView imageView,
+                                        ImageView iconOrAvatar, //needed if hybrid
+                                        TextView... txt);
 
-    //    @Override
-//    public void fill(int position, AwesomeViewHolder avh) {
-//        View[] views = null;
-//        if (gridSpecs != null)
-//            switch (mDetailsViewType) {
-//                case SINGLE_LINE:
-//                    views = new View[3];
-//                    views[0] = avh.getDetailsView();
-//                    views[1] = avh.getText1();
-//                    views[2] = avh.getButton();
-//                    break;
-//                case TWO_LINES:
-//                    views = new View[4];
-//                    views[0] = avh.getDetailsView();
-//                    views[1] = avh.getText1();
-//                    views[2] = avh.getText2();
-//                    views[3] = avh.getButton();
-//                    break;
-//            }
-//        bindDataToItemView(position, avh.getImageView1(), views);
-//    }
 
     public void setItemSpecs(GridItemSpecs specs) {
         gridSpecs = specs;

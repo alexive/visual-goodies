@@ -43,8 +43,7 @@
                 android:singleLine="true"
                 android:text="text"
                 android:textColor="?android:attr/textColorPrimary"
-                android:textSize="16sp"
-                android:transitionName="@string/main_text_transition_name"/>
+                android:textSize="16sp"/>
 
             <TextView
                 android:id="@android:id/text2"
@@ -54,8 +53,7 @@
                 android:singleLine="true"
                 android:text="Small Text"
                 android:textColor="?android:attr/textColorSecondary"
-                android:textSize="12sp"
-                android:transitionName="@string/secondary_text_transition_name"/>
+                android:textSize="12sp"/>
 
         </RelativeLayout>
 

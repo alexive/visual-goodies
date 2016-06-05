@@ -100,9 +100,9 @@ public abstract class GridAdapter extends ListAdapter {
         return result;
     }
 
-    public String getGridImageTransitionName(Context c) {
-        return c.getString(R.string.image_transition_name);
-    }
+//    public String getGridImageTransitionName(Context c) {
+//        return c.getString(R.string.image_transition_name);
+//    }
 
     public View getDetailsView(LayoutInflater inflater, ViewGroup parent,
                                AwesomeViewHolder result) {

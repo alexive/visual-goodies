@@ -28,7 +28,6 @@
         android:id="@+id/imageView"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:transitionName="@string/image_transition_name"
         app:proportion="at_least_square"/>
 
 

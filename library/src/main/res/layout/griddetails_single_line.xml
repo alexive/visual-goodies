@@ -38,8 +38,7 @@
             android:layout_toStartOf="@+id/imageButton"
             android:singleLine="true"
             android:text="text"
-            android:textSize="16sp"
-            android:transitionName="@string/main_text_transition_name"/>
+            android:textSize="16sp"/>
 
         <ImageButton
             android:id="@+id/imageButton"

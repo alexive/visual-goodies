@@ -153,8 +153,7 @@ public abstract class GridAdapter extends ListAdapter {
         bindDataToItem(i,
                 awesomeViewHolder.itemView,
                 awesomeViewHolder.getDetailsView(),
-                awesomeViewHolder.getImageView1(),  //If it's an ordinary item
-                awesomeViewHolder.getImageView1(),  //getIV1() stores the avatar.
+                awesomeViewHolder.getImageView1(),
                 awesomeViewHolder.button,
                 awesomeViewHolder.text1,
                 awesomeViewHolder.text2);
@@ -166,16 +165,14 @@ public abstract class GridAdapter extends ListAdapter {
      * @param index        The index of the item
      * @param itemView     The list item's view
      * @param detailsView  Item's detail view, typically under the image
-     * @param imageView    The item's ImageView
-     * @param iconOrAvatar If it's an ordinary list item, it's avatar
+     * @param imageViewOrAvatar    The item's ImageView, or the avatar if it's an ordinary item
      * @param imageButton  If it's an ordinary list item, it's button
      * @param txt          The item's text views, from top to bottom, left to right
      */
     public abstract void bindDataToItem(int index,
                                         View itemView,
                                         View detailsView,
-                                        ImageView imageView,
-                                        ImageView iconOrAvatar, //needed if hybrid
+                                        ImageView imageViewOrAvatar,
                                         ImageButton imageButton,
                                         TextView... txt);
 
@@ -214,7 +211,7 @@ public abstract class GridAdapter extends ListAdapter {
 
     public static class GridItemSpecs {
         public boolean detailsGravityIsTop = false;
-        public boolean detailsViewFloats = !true;
+        public boolean detailsViewFloats = false;
         public boolean forceDarkMode = false;
         public boolean forceSquareImage = true;
     }

@@ -113,9 +113,11 @@ abstract class BaseAdapter extends RecyclerView.Adapter<AwesomeViewHolder> {
     /**
      * Binds data to an item of the list.
      *
-     * @param index    The index of the item in the list
-     * @return recycled with the updated data. Please note that recycled.getType()
-     * must be equal to getListItemDataType(index) or the rendering will be misbehave.
+     * @param index        The index of the item in the list
+     * @param itemView     The item's View
+     * @param iconOrAvatar The item's avatar, if exists (may be null)
+     * @param button       The item's button, if exists (may be null)
+     * @param texts        The item's textViews, from top to bottom, left to right
      */
     public abstract void bindDataToListItem(int index, View itemView, ImageView iconOrAvatar,
                                             ImageButton button, TextView... texts);
@@ -286,7 +288,7 @@ abstract class BaseAdapter extends RecyclerView.Adapter<AwesomeViewHolder> {
 //        if (isSubHeader(position))
 //            return AwesomeViewTypes.SUB_HEADER.code;
 //        else
-            return getListItemDataType(position).resId;
+        return getListItemDataType(position).resId;
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {

@@ -1,7 +1,5 @@
-##Why I did this
-After learning to code and doing a few Android apps just for me to learn, I found myself writing the same code over and over again. Then, in college, I realized I could reuse the code, so I decided to move the repeated parts onto a separate project tweak it a bit and voilà! This includes list adapters, dialogs, cards, etc
-
-# Still in early development! ~~May~~ contain bugs
+The purpose of this library is to provide an easy way to implement some of the the eye-candy lists/cards/and some other widgets Google demonstrates on the Material Design Guidelines.
+Checkout some of the features below.
 
 ## Lists
 The goal was to mimic the lists (and Grids) shown at [Google's Material Design guidelines](https://www.google.com/design/spec/components/lists.html#lists-specs) (or hybrids of them) with just a few lines of code:
@@ -70,8 +68,6 @@ new TextInputDialog(getActivity()).setInputPolicy(new TextInputDialog.InputPolic
 ```
 
 ## CardBuilder
-*This one is still in early development so it'll not work for very complex cards*
-
 The intent is to create a Card like the ones at [Google's MD guidelines](https://www.google.com/design/spec/components/cards.html) with just a few lines (and not having to create layout files)
 
 [Check the demo project](/demo/src/main/java/com/alexive/graphicalutils/demo/CardsActivity.java) for a complete sample on how to use the CardBuilder. The result is this:
@@ -116,7 +112,7 @@ configurations.all {
 ```
 
 ## Suggest/Contribute
-Any suggestions (and contributions) to this library will be greatly appreciated.
+Any suggestions (and contributions) will be greatly appreciated.
 The same thing goes for any bugs you find. Just file up an issue and I'll look it up ASAP.
 
 ##Demo project
@@ -127,6 +123,18 @@ In a one-liner:
 `git clone https://github.com/alexive/visual-goodies.git && cd visual-goodies && echo "include ':library', ':demo'" > settings.gradle`
 
 Then open the project on Android Studio and run the demo module
+
+##Apps that use this library
+None yet! If your use it in your app, feel free to open up an issue and i'll just mention it here
+
+##Why I did this
+After learning to code and doing a few Android apps just for me to learn, I found myself writing the same code over and over again. Then, in college, I realized I could reuse the code, so I decided to move the repeated parts onto a separate project tweak it a bit and voilà! This includes list adapters, dialogs, cards, etc
+
+##Wishlist (or TODO):
+* Swipeable list items
+* Drag and drop to reorder
+* Pull to refresh
+* Even more cards
 
 ## License
 ```

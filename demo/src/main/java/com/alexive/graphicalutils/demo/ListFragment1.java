@@ -1,11 +1,11 @@
 /*
- * Copyright (C) 2016 J. Oliveira
+ * Copyright 2016 J. Alexandre Oliveira
  *
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -59,21 +59,23 @@ public class ListFragment1 extends RecyclerViewFragment implements OnItemLongCli
      * The objects to show on the list. They'll contain a title, a subtitle and an avatar
      */
     private static final Object[] LIST_ITEMS = new Object[]{
+            "Subheader 1",
             new DummyObject("Lorem ipsum", "Dolor", TextDrawable.builder().buildRound("L",
                     ColorGenerator.MATERIAL.getColor("L"))),
             new DummyObject("asdfgjklç", "qwertyuiop", TextDrawable.builder().buildRound("A",
                     ColorGenerator.MATERIAL.getColor("a"))),
             new DummyObject("abcdef", "12345", TextDrawable.builder().buildRound("A",
                     ColorGenerator.MATERIAL.getColor("A"))),
-            "Subheader 1",
+            "Subheader 2: Dialogs!",
             new SimplerDummyObject("Tap to display a dialogue"),
             new SimplerDummyObject("This one'll show a confirmation dialog"),
             new SimplerDummyObject("and this a TextInputDialog"),
             new DummyObject("asdfghjkl", "qwertyuiop", TextDrawable.builder().buildRound("A",
                     ColorGenerator.MATERIAL.getColor("â"))),
-            "Subheader 2",
+            "Subheader 3: Cards",
             new DummyObject("Lets see some cards", "Tap to view more", TextDrawable.builder().buildRound("L",
                     ColorGenerator.MATERIAL.getColor("Le"))),
+            "Subheader4",
             new SimplerDummyObject("Long press me and see what happens"),
             new SimplerDummyObject("https://github.com/amulyakhare/TextDrawable is amazing")
     };
@@ -87,51 +89,7 @@ public class ListFragment1 extends RecyclerViewFragment implements OnItemLongCli
         //Star from here, don't forget to call super!
         setHasOptionsMenu(true);
         getRecyclerView().setLayoutManager(new LinearLayoutManager(getActivity()));
-        this.mListAdapter = new ListAdapter() {
-
-            @Override
-            public String getSubHeaderText(int position) {
-                return items[position].toString();
-            }
-
-            @Override
-            public int getNumItems() {
-                return items.length;
-            }
-
-            @Override
-            public void bindDataToListItem(int index, View itemView, ImageView iconOrAvatar, ImageButton button, TextView... texts) {
-                //here you actually compose the list item
-                Object current = items[index];
-                //This will be the title, it's safe not to check for the type here
-                //because every type of list item has at leat one textView
-                //The sequence is: top to bottom, left to right
-                texts[0].setText(((DummyObject)current).getName());
-                if (getListItemDataType(index) == ListItemType.TWO_TEXTS_AND_AVATAR) {
-                    texts[1].setText(((DummyObject) current).getDescription());
-                    iconOrAvatar.setImageDrawable(((DummyObject) current).getAvatar());
-                }
-
-            }
-
-            @Override
-            public long getIdForItem(int position) {
-                //OVERRIDE THIS METHOD IF YOU'RE USING CHECKBOXES
-                //the default implementation just returns position
-                //it's good enough ONLY if the items are not changing (being moved/removed)
-                return super.getIdForItem(position);
-            }
-
-            @Override
-            public ListItemType getListItemDataType(int index) {
-                if (items[index] instanceof String)
-                    return ListItemType.SUB_HEADER;
-                else if (items[index] instanceof SimplerDummyObject)
-                    return ListItemType.SINGLE_TEXT;
-                else
-                    return ListItemType.TWO_TEXTS_AND_AVATAR;
-            }
-        };
+        this.mListAdapter = new ItemsAdapter();
 
         //This styles the dividers
         this.mListAdapter.setDividerColor(Divider.MATERIAL_LIGHT_DIVIDER_COLOR);
@@ -176,6 +134,12 @@ public class ListFragment1 extends RecyclerViewFragment implements OnItemLongCli
             case R.id.header:
                 addHeaderView();
                 notifyDataSetChanged();
+                return true;
+            case R.id.shift:
+                boolean isChecked = item.isChecked();
+                item.setChecked(!isChecked);
+                this.mListAdapter.shiftShubheadersText(!isChecked);
+                this.mListAdapter.notifyDataSetChanged();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -231,7 +195,7 @@ public class ListFragment1 extends RecyclerViewFragment implements OnItemLongCli
 
     @Override
     public boolean onItemLongClick(View itemView, int position){
-        if (position != 10)
+        if (position != 12)
             return false;
         ListAdapter.ListCheckingActionMode mode = new ListAdapter.ListCheckingActionMode(getRecyclerView()) {
             @Override
@@ -259,11 +223,11 @@ public class ListFragment1 extends RecyclerViewFragment implements OnItemLongCli
     @Override
     public void onItemClicked(View itemView, int position) {
         //You need to count with subheaders here, since they count as a regular list item
-        if (position == 4){
+        if (position == 5) {
             MessageDialog.show(getActivity(),
                     "This is a message dialog",
                     "Lorem ipsum dolor sit amet.");
-        } else if (position == 5){
+        } else if (position == 6) {
             MessageDialog.askConfirmation(getActivity(),
                     "This is a confirmation dialogue",
                     "Lorem ipsum dolor sit amet.", new DialogInterface.OnClickListener() {
@@ -272,7 +236,7 @@ public class ListFragment1 extends RecyclerViewFragment implements OnItemLongCli
                             Toast.makeText(getActivity(), "User confirmed", Toast.LENGTH_SHORT).show();
                         }
                     });
-        } else if (position == 6){
+        } else if (position == 7) {
             new TextInputDialog(getActivity())
                     .setTitle("Write something")
                     .setTextHint("Write something except: whatever")
@@ -300,9 +264,55 @@ public class ListFragment1 extends RecyclerViewFragment implements OnItemLongCli
                                     .show();
                         }
                     });
-        } else if (position == 9) {
+        } else if (position == 10) {
             //Show cards activity
             startActivity(new Intent(getActivity(), CardsActivity.class));
+        }
+    }
+
+    private class ItemsAdapter extends ListAdapter {
+
+        @Override
+        public String getSubHeaderText(int position) {
+            return items[position].toString();
+        }
+
+        @Override
+        public int getNumItems() {
+            return items.length;
+        }
+
+        @Override
+        public void bindDataToListItem(int index, View itemView, ImageView iconOrAvatar, ImageButton button, TextView... texts) {
+            //here you actually compose the list item
+            Object current = items[index];
+            //This will be the title, it's safe not to check for the type here
+            //because every type of list item has at leat one textView
+            //The sequence is: top to bottom, left to right
+            texts[0].setText(((DummyObject) current).getName());
+            if (getListItemDataType(index) == ListItemType.TWO_TEXTS_AND_AVATAR) {
+                texts[1].setText(((DummyObject) current).getDescription());
+                iconOrAvatar.setImageDrawable(((DummyObject) current).getAvatar());
+            }
+
+        }
+
+        @Override
+        public long getIdForItem(int position) {
+            //OVERRIDE THIS METHOD IF YOU'RE USING CHECKBOXES
+            //the default implementation just returns position
+            //it's good enough ONLY if the items are not changing (being moved/removed)
+            return super.getIdForItem(position);
+        }
+
+        @Override
+        public ListItemType getListItemDataType(int index) {
+            if (items[index] instanceof String)
+                return ListItemType.SUB_HEADER;
+            else if (items[index] instanceof SimplerDummyObject)
+                return ListItemType.SINGLE_TEXT;
+            else
+                return ListItemType.TWO_TEXTS_AND_AVATAR;
         }
     }
 }

@@ -1,3 +1,5 @@
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-visual--goodies-green.svg?style=true)](https://android-arsenal.com/details/1/4100)
+
 The purpose of this library is to provide an easy way to implement some of the the eye-candy lists/cards/and some other widgets Google demonstrates on the Material Design Guidelines.
 Checkout some of the features below.
 

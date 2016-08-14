@@ -1,11 +1,11 @@
 /*
- * Copyright (C) 2016 J. Oliveira
+ * Copyright 2016 J. Alexandre Oliveira
  *
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -52,17 +52,21 @@ public class MessageDialog {
     }
 
     /**
-     * Asks the user to confirm something
-     * @param context
-     * @param title Dialog's title resId
-     * @param message Dialog's message resId
-     * @param onConfirm Called when the user presses OK
+     * Identical to
+     * {@link #askConfirmation(Context, String, String,
+     * DialogInterface.OnClickListener, android.content.DialogInterface.OnClickListener)}
+     * with a default action (the dialog is closed) when the user presses cancel
      */
     public static void askConfirmation(Context context,
-                                       int title,
-                                       int message,
+                                       String title,
+                                       String message,
                                        DialogInterface.OnClickListener onConfirm) {
-        askConfirmation(context, context.getString(title), context.getString(message), onConfirm);
+        askConfirmation(context, title, message, onConfirm, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
     }
 
     /**
@@ -70,17 +74,17 @@ public class MessageDialog {
      * @param context
      * @param title Dialog's title
      * @param message Dialog's message
-     * @param onConfirm Called when the user presses OK
+     * @param onConfirm Called if the user chose OK
+     * @param onCancel Called if the user chose Cancel
      */
-    public static void askConfirmation(Context context,
-                                       String title,
-                                       String message,
-                                       DialogInterface.OnClickListener onConfirm) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle(title)
+    public static void askConfirmation(Context context, String title, String message,
+                                       DialogInterface.OnClickListener onConfirm,
+                                       DialogInterface.OnClickListener onCancel){
+        new AlertDialog.Builder(context)
+                .setTitle(title)
                 .setMessage(message)
-                .setPositiveButton(android.R.string.ok, onConfirm);
-        //TODO insert negative button, if not null, here
-        builder.show();
+                .setPositiveButton(android.R.string.ok, onConfirm)
+                .setNegativeButton(android.R.string.cancel, onCancel)
+                .show();
     }
 }

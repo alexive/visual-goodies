@@ -435,7 +435,7 @@ public abstract class ListAdapter extends BaseAdapter {
         }
     }
 
-    private class ButtonListener implements View.OnClickListener {
+    class ButtonListener implements View.OnClickListener {
 
         protected AwesomeViewHolder avw;
 

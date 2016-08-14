@@ -1,11 +1,11 @@
 /*
- * Copyright (C) 2016 J. Oliveira
+ * Copyright 2016 J. Alexandre Oliveira
  *
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -73,6 +73,7 @@ public abstract class GridAdapter extends ListAdapter {
         base.setClickable(true);
         AwesomeViewHolder result = new AwesomeViewHolder(base);
         setListenerForHolder(result);
+
         ProportionalImageView imageView = (ProportionalImageView) base.findViewById(R.id.imageView);
         if (gridSpecs.forceSquareImage)
             imageView.setSquare();
@@ -81,6 +82,11 @@ public abstract class GridAdapter extends ListAdapter {
             return result;
         }
         View details = getDetailsView(inflater, group, result);
+
+        ImageButton imageButton = (ImageButton) details.findViewById(R.id.imageButton);
+        imageButton.setOnClickListener(new ButtonListener(result));
+        result.setButton(imageButton);
+
         if (gridSpecs.detailsViewFloats) {
             //We just add it to the framelayout and set the gravity
             FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams
@@ -97,6 +103,7 @@ public abstract class GridAdapter extends ListAdapter {
             parent.addView(details, gridSpecs.detailsGravityIsTop ? 0 : 1);
             base.findViewById(R.id.noFloatParent).requestLayout();
         }
+
         return result;
     }
 

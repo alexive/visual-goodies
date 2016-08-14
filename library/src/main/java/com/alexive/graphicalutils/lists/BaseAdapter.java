@@ -1,11 +1,11 @@
 /*
- * Copyright (C) 2016 J. Oliveira
+ * Copyright 2016 J. Alexandre Oliveira
  *
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -144,15 +144,11 @@ abstract class BaseAdapter extends RecyclerView.Adapter<AwesomeViewHolder> {
                 R.layout.subheader_simple_padding_no_accent;
     }
 
-    public void setSubheaderTextShifted(boolean shift) {
-        this.shift = shift;
-    }
-
     @Override
     public AwesomeViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         if (i == AwesomeViewTypes.HEADER.code) {
             return new AwesomeViewHolder(headerView);
-        } else if (i != AwesomeViewTypes.SUB_HEADER.code) {
+        } else if (!AwesomeViewTypes.isSubHeader(i)) {
             AwesomeViewHolder avh = new AwesomeViewHolder(i, viewGroup);
             setListenerForHolder(avh);
             return avh;
@@ -201,7 +197,7 @@ abstract class BaseAdapter extends RecyclerView.Adapter<AwesomeViewHolder> {
                 awesomeViewHolder.divider.setBackgroundColor(dividerColor);
             else
                 awesomeViewHolder.divider.setBackgroundColor(Color.TRANSPARENT);
-        if (getItemViewType(index) == AwesomeViewTypes.SUB_HEADER.code) {
+        if (AwesomeViewTypes.isSubHeader(getItemViewType(index))) {
 //            if (headerView != null)
 //                i--;
             awesomeViewHolder.text1.setText(getSubHeaderText(i));
@@ -238,7 +234,7 @@ abstract class BaseAdapter extends RecyclerView.Adapter<AwesomeViewHolder> {
         extraPadding = extra;
     }
 
-    public void setShiftSubheaderText(boolean shift) {
+    public void shiftShubheadersText(boolean shift) {
         this.shift = shift;
     }
 
@@ -268,7 +264,7 @@ abstract class BaseAdapter extends RecyclerView.Adapter<AwesomeViewHolder> {
         if (dividerStyle == Divider.Style.NONE)
             return false;
         else if (dividerStyle == Divider.Style.JUST_SUB_HEADERS && i < getItemCount() - 1)
-            return getItemViewType(i + 1) == AwesomeViewTypes.SUB_HEADER.code;
+            return AwesomeViewTypes.isSubHeader(getItemViewType(i + 1));
         else
             return getItemCount() - 1 != getRealAdapterPosition(i);
     }
@@ -288,7 +284,14 @@ abstract class BaseAdapter extends RecyclerView.Adapter<AwesomeViewHolder> {
 //        if (isSubHeader(position))
 //            return AwesomeViewTypes.SUB_HEADER.code;
 //        else
-        return getListItemDataType(position).resId;
+
+        ListItemType listItemDataType = getListItemDataType(position);
+        if (listItemDataType == ListItemType.SUB_HEADER)
+            return shift ? AwesomeViewTypes.SUB_HEADER_SHIFTED.code :
+                    AwesomeViewTypes.SUB_HEADER_NORMAL.code;
+
+        return listItemDataType.resId;
+
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {

@@ -1,11 +1,11 @@
 /*
- * Copyright (C) 2016 J. Oliveira
+ * Copyright 2016 J. Alexandre Oliveira
  *
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -18,7 +18,6 @@ package com.alexive.graphicalutils.lists;
 
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -211,16 +210,13 @@ public abstract class ListAdapter extends BaseAdapter {
         View v; //The view that is below the checkbox
         if (getListItemDataType(ii).beneathCheckBoxId == R.id.imageView) {
             v = awesomeViewHolder.left;
-            Log.e("ListAdapter-onBindVH", "Assigning the left view to i = " + ii);
         } else
             v = awesomeViewHolder.button;
 
         if (v == null) {
-            Log.e("ListAdapter-onBindVH", "v was null for i = " + ii);
             return;
         }
         if (awesomeViewHolder.checkBox == null) {
-            Log.e("ListAdapter-onBindVH", "viewHolder has no checkbox for i = " + ii);
             return;
         }
         if (areCheckBoxesShown() && showCheckboxOnItem(ii)) {

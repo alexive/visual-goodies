@@ -1,4 +1,4 @@
-[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-visual--goodies-green.svg?style=true)](https://android-arsenal.com/details/1/4100)
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-visual--goodies-brightgreen.svg?style=flat-square)](http://android-arsenal.com/details/1/4100)
 
 The purpose of this library is to provide an easy way to implement some of the the eye-candy lists/cards/and some other widgets Google demonstrates on the Material Design Guidelines.
 Checkout some of the features below.
@@ -140,7 +140,7 @@ After learning to code and doing a few Android apps just for me to learn, I foun
 
 ## License
 ```
-Copyright 2016 J. Oliveira
+Copyright 2016 J. Alexandre Oliveira
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

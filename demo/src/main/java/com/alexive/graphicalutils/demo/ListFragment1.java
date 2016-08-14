@@ -16,10 +16,12 @@
 
 package com.alexive.graphicalutils.demo;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -77,11 +79,19 @@ public class ListFragment1 extends RecyclerViewFragment implements OnItemLongCli
                     ColorGenerator.MATERIAL.getColor("Le"))),
             "Subheader4",
             new SimplerDummyObject("Long press me and see what happens"),
+            new SimplerDummyObject("Tap to see another sample list"),
             new SimplerDummyObject("https://github.com/amulyakhare/TextDrawable is amazing")
     };
-
     private Object[] items = LIST_ITEMS;
     private ListAdapter mListAdapter;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (!(getActivity() instanceof ListFragment1Interface))
+            throw new RuntimeException("Parent activity must implement " +
+                    ListFragment1Interface.class.getName());
+    }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -194,7 +204,7 @@ public class ListFragment1 extends RecyclerViewFragment implements OnItemLongCli
     }
 
     @Override
-    public boolean onItemLongClick(View itemView, int position){
+    public boolean onItemLongClick(View itemView, int position) {
         if (position != 12)
             return false;
         ListAdapter.ListCheckingActionMode mode = new ListAdapter.ListCheckingActionMode(getRecyclerView()) {
@@ -216,7 +226,7 @@ public class ListFragment1 extends RecyclerViewFragment implements OnItemLongCli
                 //called when the user checked the item with id = id
             }
         };
-        ((AppCompatActivity)getActivity()).startSupportActionMode(mode);
+        ((AppCompatActivity) getActivity()).startSupportActionMode(mode);
         return true;
     }
 
@@ -267,7 +277,18 @@ public class ListFragment1 extends RecyclerViewFragment implements OnItemLongCli
         } else if (position == 10) {
             //Show cards activity
             startActivity(new Intent(getActivity(), CardsActivity.class));
+        } else if (position == 13) {
+            ((ListFragment1Interface) getActivity()).displaySecondList();
         }
+    }
+
+    /**
+     * Used to interact with the parent activity.
+     * onAttach will check if the activity implements this and will throw an exception if it
+     * doesn't
+     */
+    public interface ListFragment1Interface {
+        void displaySecondList();
     }
 
     private class ItemsAdapter extends ListAdapter {
@@ -292,7 +313,7 @@ public class ListFragment1 extends RecyclerViewFragment implements OnItemLongCli
             texts[0].setText(((DummyObject) current).getName());
             if (getListItemDataType(index) == ListItemType.TWO_TEXTS_AND_AVATAR) {
                 texts[1].setText(((DummyObject) current).getDescription());
-                iconOrAvatar.setImageDrawable(((DummyObject) current).getAvatar());
+                iconOrAvatar.setImageDrawable((Drawable) ((DummyObject) current).getAvatar());
             }
 
         }

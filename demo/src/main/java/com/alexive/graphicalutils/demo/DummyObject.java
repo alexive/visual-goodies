@@ -1,11 +1,11 @@
 /*
- * Copyright (C) 2016 J. Oliveira
+ * Copyright 2016 J. Alexandre Oliveira
  *
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,8 +16,6 @@
 
 package com.alexive.graphicalutils.demo;
 
-import android.graphics.drawable.Drawable;
-
 /**
  * Dummy object used to actually give the list some content
  */
@@ -25,16 +23,18 @@ public class DummyObject {
 
     private String name;
     private String description;
-    private Drawable avatar;
+    private Object avatar;
 
-    public DummyObject(String name, String description, Drawable drawable){
+    public DummyObject(String name, String description, Object drawable) {
         this.name = name;
         this.description = description;
+//        if (!(drawable instanceof TextDrawable || drawable instanceof Integer))
+//            throw new RuntimeException("3rd param must be Integer or TextDrawable");
         avatar = drawable;
 
     }
 
-    public Drawable getAvatar() {
+    public Object getAvatar() {
         return avatar;
     }
 

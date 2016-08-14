@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Copyright (C) 2016 J. Oliveira
+  ~ Copyright 2016 J. Alexandre Oliveira
   ~
-  ~  Licensed under the Apache License, Version 2.0 (the "License");
-  ~  you may not use this file except in compliance with the License.
-  ~  You may obtain a copy of the License at
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
   ~
-  ~       http://www.apache.org/licenses/LICENSE-2.0
+  ~     http://www.apache.org/licenses/LICENSE-2.0
   ~
   ~ Unless required by applicable law or agreed to in writing, software
   ~ distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,60 +14,54 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-
-<FrameLayout android:id="@+id/detailsRoot"
-             xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="fill_parent"
-             android:layout_height="wrap_content"
-             android:orientation="horizontal">
+<RelativeLayout android:id="@+id/detailsRoot"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="68dp">
 
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="68dp">
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center_vertical"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_toLeftOf="@+id/imageButton"
+        android:layout_toStartOf="@+id/imageButton">
 
-        <RelativeLayout
+        <TextView
+            android:id="@android:id/text1"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_gravity="center_vertical"
-            android:layout_marginEnd="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_toLeftOf="@+id/imageButton"
-            android:layout_toStartOf="@+id/imageButton">
-            <TextView
-                android:id="@android:id/text1"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:singleLine="true"
-                android:text="text"
-                android:textColor="?android:attr/textColorPrimary"
-                android:textSize="16sp"/>
+            android:singleLine="true"
+            android:text="text"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="16sp"/>
 
-            <TextView
-                android:id="@android:id/text2"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@android:id/text1"
-                android:singleLine="true"
-                android:text="Small Text"
-                android:textColor="?android:attr/textColorSecondary"
-                android:textSize="12sp"/>
-
-        </RelativeLayout>
-
-        <ImageButton
-            android:id="@+id/imageButton"
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@android:id/text2"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="false"
-            android:layout_centerVertical="true"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:paddingEnd="16dp"
-            android:paddingRight="16dp"/>
-
+            android:layout_below="@android:id/text1"
+            android:singleLine="true"
+            android:text="Small Text"
+            android:textColor="?android:attr/textColorSecondary"
+            android:textSize="12sp"/>
     </RelativeLayout>
-</FrameLayout>
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="32dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="false"
+        android:layout_centerVertical="true"
+        android:layout_margin="8dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:scaleType="fitCenter"
+        android:visibility="visible"/>
+
+</RelativeLayout>

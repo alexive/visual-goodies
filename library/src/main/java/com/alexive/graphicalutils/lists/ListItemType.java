@@ -30,16 +30,17 @@ public enum ListItemType {
      */
     SINGLE_TEXT(R.layout.listem_item_one_text, 0),
     /**
-     * A list item with two TextViews. Doesn't contain a CheckBox
+     * Same as {@link #SINGLE_TEXT} but with two TextViews
      */
     TWO_TEXTS(R.layout.list_item_two_texts, 0),
 
     /**
-     * An item with a TextView and an ImageView (for an icon/avatar) on the left.
+     * An item with a TextView and an ImageView (for an icon/avatar) on the left. Contains a
+     * Checkbox behind the ImageView
      */
     ONE_TEXT_AND_AVATAR(R.layout.single_avatar_text, R.id.imageView),
     /**
-     * An item with two TextViews and an ImageView (for an icon/avatar) on the left
+     * Same as {@link #ONE_TEXT_AND_AVATAR} but with two TextViews
      */
     TWO_TEXTS_AND_AVATAR(R.layout.double_avatar_text, R.id.imageView),
 
@@ -49,11 +50,17 @@ public enum ListItemType {
      */
     ONE_TEXT_WITH_AVATAR_AND_BUTTON(R.layout.single_avatar_button_text, R.id.imageButton),
     /**
-     *
+     * Same as {@link #ONE_TEXT_WITH_AVATAR_AND_BUTTON} but with two TextViews
      */
     TWO_TEXTS_WITH_AVATAR_AND_BUTTON(R.layout.double_avatar_button_text, R.id.imageButton),
 
+    /**
+     * Ordinary GridItem that takes a single cell
+     */
     GRID_ITEM(0, 0),
+    /**
+     * Subheader. Contains a single TextView. On a grid, it spans all columns
+     */
     SUB_HEADER(1,AwesomeViewTypes.SUB_HEADER_NORMAL.code);
 
 

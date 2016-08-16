@@ -1,11 +1,11 @@
 /*
- * Copyright (C) 2016 J. Oliveira
+ * Copyright 2016 J. Alexandre Oliveira
  *
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -24,6 +24,7 @@ import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -175,7 +176,7 @@ public class CardBuilder implements View.OnClickListener {
      * @param customMainView Custom view to be added to the card.
      * @return
      */
-    public CardBuilder addCustomViewView(View customMainView) {
+    public CardBuilder addCustomView(View customMainView) {
         this.customMainView = customMainView;
         return this;
     }
@@ -192,6 +193,7 @@ public class CardBuilder implements View.OnClickListener {
         subTitle = null;
         image = null;
         mPrimaryAction = null;
+        this.customMainView = null;
         return this;
     }
 
@@ -253,6 +255,12 @@ public class CardBuilder implements View.OnClickListener {
 
         mCardView.setOnClickListener(mPrimaryAction);
         //TODO add the custom view
+        FrameLayout mCustomViewParent = (FrameLayout) mCardView.findViewById(R.id.custom_view_container);
+        if (mCustomViewParent != null) {
+            mCustomViewParent.removeAllViews();
+            if (customMainView != null)
+                mCustomViewParent.addView(customMainView);
+        }
 
         view = mCardView.findViewById(android.R.id.content);
         if (view != null) {
@@ -370,7 +378,7 @@ public class CardBuilder implements View.OnClickListener {
          */
         IMAGE_AS_BACKGROUND(R.layout.card_image_as_background),
         /**
-         * The ImageView will stretch to actuallyBindDataToListItem the card's width and will keep a 16:9 ratio.
+         * The ImageView will stretch to fill the card's width and will keep a 16:9 ratio.
          */
         FULL_WIDTH_IMAGE(R.layout.card_image_full_width),
         //TODO simple square with title

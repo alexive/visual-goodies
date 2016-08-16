@@ -20,21 +20,37 @@ import com.alexive.graphicalutils.R;
 
 /**
  * Lists the various types of list items. Each value basically says what an item of that type
- * will contain, per exame {@link #ONE_TEXT_AND_AVATAR} will have a textview and an ImageView (avatar)
+ * will contain, per example {@link #ONE_TEXT_AND_AVATAR} will have a textview and an ImageView (avatar)
  * on the left side.
  */
 public enum ListItemType {
 
+    /**
+     * A list item with only one TextViews. Doesn't contain a CheckBox
+     */
     SINGLE_TEXT(R.layout.listem_item_one_text, 0),
+    /**
+     * A list item with two TextViews. Doesn't contain a CheckBox
+     */
     TWO_TEXTS(R.layout.list_item_two_texts, 0),
 
-    ONE_TEXT_AND_ICON(R.layout.listem_item_one_text_icon, R.id.imageView),
-    TWO_TEXTS_AND_ICON(R.layout.listem_item_two_text_icon, R.id.imageView),
-
+    /**
+     * An item with a TextView and an ImageView (for an icon/avatar) on the left.
+     */
     ONE_TEXT_AND_AVATAR(R.layout.single_avatar_text, R.id.imageView),
+    /**
+     * An item with two TextViews and an ImageView (for an icon/avatar) on the left
+     */
     TWO_TEXTS_AND_AVATAR(R.layout.double_avatar_text, R.id.imageView),
 
+    /**
+     * An item with a TextView, an ImageView on the left (for an icon/avatar)
+     * and an ImageButton on the right. Contains a Checkbox behind the Button
+     */
     ONE_TEXT_WITH_AVATAR_AND_BUTTON(R.layout.single_avatar_button_text, R.id.imageButton),
+    /**
+     *
+     */
     TWO_TEXTS_WITH_AVATAR_AND_BUTTON(R.layout.double_avatar_button_text, R.id.imageButton),
 
     GRID_ITEM(0, 0),

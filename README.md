@@ -117,7 +117,7 @@ configurations.all {
 Any suggestions (and contributions) will be greatly appreciated.
 The same thing goes for any bugs you find. Just file up an issue and I'll look it up ASAP.
 
-##Demo project
+## Demo project
 If you want to try the demo project, just clone the repo, uncomment the project's root
 settings.gradle and you can go from there.
 In a one-liner:
@@ -126,13 +126,13 @@ In a one-liner:
 
 Then open the project on Android Studio and run the demo module
 
-##Apps that use this library
+## Apps that use this library
 None yet! If your use it in your app, feel free to open up an issue and i'll just mention it here
 
-##Why I did this
+## Why I did this
 After learning to code and doing a few Android apps just for me to learn, I found myself writing the same code over and over again. Then, in college, I realized I could reuse the code, so I decided to move the repeated parts onto a separate project tweak it a bit and voilà! This includes list adapters, dialogs, cards, etc
 
-##Wishlist (or TODO):
+## Wishlist (or TODO):
 * Swipeable list items
 * Drag and drop to reorder
 * Pull to refresh
